@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snow Forecast</title>
+</head>
+<body>
+<h1>Snow Forecast</h1>
+
+<p>{{ city_forecast.city }}:</p>
+<ul>
+<li>Snowfall: {{ city_forecast.snowfall }}</li>
+<li>Temperature: {{ city_forecast.temperature }}</li>
+<li>Conditions: {{ city_forecast.conditions }}</li>
+</ul>
+
+<p>{{ city_forecast.city }} to Palisades Tahoe:</p>
+<ul>
+<li>Snowfall: {{ city_to_pali_snowfall.snowfall }}</li>
+<li>Temperature: {{ city_to_pali_snowfall.temperature }}</li>
+<li>Conditions: {{ city_to_pali_snowfall.conditions }}</li>
+</ul>
+</body>
+</html>
+
