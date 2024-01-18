@@ -1,6 +1,8 @@
  
 # Import necessary libraries
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request
+import requests
+import json
 
 # Create a Flask app
 app = Flask(__name__)
@@ -8,49 +10,26 @@ app = Flask(__name__)
 # Define the main route
 @app.route('/')
 def index():
-    # Get the snow forecast for Palisades Tahoe
-    pali_forecast = get_pali_forecast()
+    # Render the index.html file
+    return render_template('index.html')
 
-    # Get the expected snowfall on the road from San Francisco to Palisades Tahoe
-    sf_to_pali_snowfall = get_sf_to_pali_snowfall()
+# Define the route to generate the customized snow map
+@app.route('/map', methods=['POST'])
+def generate_map():
+    # Get the starting and ending locations from the form data
+    start_location = request.form['start_location']
+    end_location = request.form['end_location']
 
-    # Render the index.html template with the forecast data
-    return render_template('index.html', pali_forecast=pali_forecast, sf_to_pali_snowfall=sf_to_pali_snowfall)
+    # Generate the customized snow map using an external API
+    # Here, we are using a mock API for demonstration purposes.
+    # In a real application, you would use an actual API or implement your own logic to generate the map.
+    api_url = 'https://mock-snow-map-api.com/generate'
+    response = requests.get(api_url, params={'start': start_location, 'end': end_location})
+    snow_map_data = json.loads(response.text)
 
-# Define the city route
-@app.route('/city', methods=['POST'])
-def city():
-    # Get the selected city from the form
-    selected_city = request.form.get('city')
+    # Render the map.html file with the generated snow map data
+    return render_template('map.html', snow_map_data=snow_map_data)
 
-    # Redirect to the city/<city> route
-    return redirect(url_for('city', city=selected_city))
-
-# Define the city/<city> route
-@app.route('/city/<city>')
-def city_page(city):
-    # Get the snow forecast for the selected city
-    city_forecast = get_city_forecast(city)
-
-    # Get the expected snowfall on the road from the selected city to Palisades Tahoe
-    city_to_pali_snowfall = get_city_to_pali_snowfall(city)
-
-    # Render the city.html template with the forecast data
-    return render_template('city.html', city_forecast=city_forecast, city_to_pali_snowfall=city_to_pali_snowfall)
-
-# Define functions to get the forecast data
-def get_pali_forecast():
-    # Logic to get the snow forecast for Palisades Tahoe
-
-def get_sf_to_pali_snowfall():
-    # Logic to get the expected snowfall on the road from San Francisco to Palisades Tahoe
-
-def get_city_forecast(city):
-    # Logic to get the snow forecast for the selected city
-
-def get_city_to_pali_snowfall(city):
-    # Logic to get the expected snowfall on the road from the selected city to Palisades Tahoe
-
-# Run the app
+# Run the Flask app
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
