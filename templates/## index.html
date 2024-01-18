@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snow Forecast</title>
+</head>
+<body>
+<h1>Snow Forecast</h1>
+
+<p>Palisades Tahoe:</p>
+<ul>
+<li>Snowfall: {{ pali_forecast.snowfall }}</li>
+<li>Temperature: {{ pali_forecast.temperature }}</li>
+<li>Conditions: {{ pali_forecast.conditions }}</li>
+</ul>
+
+<p>San Francisco to Palisades Tahoe:</p>
+<ul>
+<li>Snowfall: {{ sf_to_pali_snowfall.snowfall }}</li>
+<li>Temperature: {{ sf_to_pali_snowfall.temperature }}</li>
+<li>Conditions: {{ sf_to_pali_snowfall.conditions }}</li>
+</ul>
+
+<form action="/city" method="POST">
+<label for="city">Starting City:</label>
+<input type="text" name="city" id="city">
+<input type="submit" value="Submit">
+</form>
+</body>
+</html>
+
+
